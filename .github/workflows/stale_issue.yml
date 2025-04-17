@@ -1,14 +1,15 @@
 name: Close stale issues
 on:
-  schedule:
-    - cron: "0 0 * * *"  # Run daily at midnight
+    push:
+        branches:
+            - main 
 
 jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
       - name: Close Stale Issues
-        uses: aws-actions/stale-issue-cleanup@v7.0.0
+        uses: aws-actions/stale-issue-cleanup@v7.1.0
         with:
           # Required inputs
           stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity.'
