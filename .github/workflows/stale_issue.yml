@@ -1,0 +1,33 @@
+name: Close stale issues
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Run daily at midnight
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close Stale Issues
+        uses: aws-actions/stale-issue-cleanup@v7.0.0
+        with:
+          # Required inputs
+          stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity.'
+          ancient-issue-message: 'This issue has been automatically closed because it has not had recent activity.'
+          stale-pr-message: 'This PR has been automatically marked as stale because it has not had recent activity.'
+          ancient-pr-message: 'This PR has been automatically closed because it has not had recent activity.'
+          
+          # Optional inputs (showing defaults)
+          stale-issue-label: 'stale'
+          exempt-issue-labels: 'awaiting-approval,work-in-progress'
+          stale-pr-label: 'stale'
+          exempt-pr-labels: 'awaiting-approval,work-in-progress'
+          response-requested-label: 'response-requested'
+          
+          # Settings
+          days-before-stale: 60
+          days-before-close: 7
+          days-before-ancient: 365
+          minimum-upvotes-to-exempt: 10
+          
+          # GitHub token
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
